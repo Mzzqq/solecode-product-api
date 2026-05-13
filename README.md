@@ -10,7 +10,7 @@ Product CRUD API
 ### Clone the repository
 
 ```bash
-git clone https://github.com/Mzzqq/soulcode-product-api.git
+git clone https://github.com/Mzzqq/solecode-product-api.git
 cd soulcode-product-api
 ```
 
