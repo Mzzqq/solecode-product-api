@@ -49,6 +49,6 @@ The project is structured into domain, usecase, and handler layers.
 
 The handler layer handles HTTP requests and responses. The usecase layer contains business logic. The domain layer contains the Product entity and abstractions such as repository and cache interfaces.
 
-An in-memory repository is used to keep the project simple and avoid external dependencies and it's used to demonstrate how product data can be cached when retrieved by ID.
+An in-memory repository is used to keep the project simple and avoid external dependencies and in-memory cache is used to demonstrate how product data can be cached when retrieved by ID.
 
 Unit tests focus on the usecase layer because it contains the main business logic.
