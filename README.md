@@ -11,7 +11,7 @@ Product CRUD API
 
 ```bash
 git clone https://github.com/Mzzqq/solecode-product-api.git
-cd soulcode-product-api
+cd solecode-product-api
 ```
 
 ### Running the Application
