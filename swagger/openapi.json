@@ -1,0 +1,304 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Product API",
+        "description": "Product CRUD API using Go Fiber",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Local development"
+        }
+    ],
+    "paths": {
+        "/products": {
+            "get": {
+                "summary": "Get all products",
+                "tags": [ "products" ],
+                "responses": {
+                    "200": {
+                        "description": "Products retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": { "type": "string", "example": "products retrieved successfully" },
+                                        "data": { "type": "array", "items": { "$ref": "#/components/schemas/Product" } }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": { "type": "string", "example": "failed to get products" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create product",
+                "tags": [ "products" ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/CreateProductRequest" }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Product created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": { "type": "string", "example": "product created successfully" },
+                                        "data": { "$ref": "#/components/schemas/Product" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request (Invalid body or validation failed)",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/BadRequestResponse" }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": { "type": "string", "example": "failed to create product" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/{id}": {
+            "get": {
+                "summary": "Get product by ID",
+                "tags": [ "products" ],
+                "parameters": [
+                    { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": { "type": "string", "example": "product retrieved successfully" },
+                                        "data": { "$ref": "#/components/schemas/Product" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": { "type": "string", "example": "product not found" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": { "type": "string", "example": "failed to get product" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update product",
+                "tags": [ "products" ],
+                "parameters": [
+                    { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/UpdateProductRequest" }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Product updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": { "type": "string", "example": "product updated successfully" },
+                                        "data": { "$ref": "#/components/schemas/Product" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request (Invalid body or validation failed)",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/BadRequestResponse" }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": { "type": "string", "example": "product not found" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": { "type": "string", "example": "failed to update product" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete product",
+                "tags": [ "products" ],
+                "parameters": [
+                    { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": { "type": "string", "example": "product deleted successfully" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": { "type": "string", "example": "product not found" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": { "type": "string", "example": "failed to delete product" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Product": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "string", "example": "550e8400-e29b-41d4-a716-446655440000" },
+                    "name": { "type": "string", "example": "Laptop Gaming" },
+                    "price": { "type": "number", "example": 15000000 },
+                    "stock": { "type": "integer", "example": 10 },
+                    "created_at": { "type": "string", "format": "date-time" }
+                }
+            },
+            "CreateProductRequest": {
+                "type": "object",
+                "required": [ "name", "price", "stock" ],
+                "properties": {
+                    "name": { "type": "string", "example": "Laptop" },
+                    "price": { "type": "number", "example": 15000000 },
+                    "stock": { "type": "integer", "example": 10 }
+                }
+            },
+            "UpdateProductRequest": {
+                "type": "object",
+                "required": [ "name", "price", "stock" ],
+                "properties": {
+                    "name": { "type": "string", "example": "Macbook" },
+                    "price": { "type": "number", "example": 20000000 },
+                    "stock": { "type": "integer", "example": 5 }
+                }
+            },
+            "BadRequestResponse": {
+                "type": "object",
+                "properties": {
+                    "message": { "type": "string", "example": "validation failed" },
+                    "error": { "type": "string", "example": "Field validation for 'Name' failed on the 'required' tag" }
+                },
+                "description": "Error string is optional and only present when validation fails."
+            }
+        }
+    }
+}
